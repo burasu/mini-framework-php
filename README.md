@@ -1,4 +1,3 @@
-mini-framework-php
-==================
+# Mini Framework PHP
+Pequeño framework realizado en PHP realizado como motivo didáctico. No está pensado para ser usado en entornos de producción.
 
-Experimento de mini framework en PHP
