@@ -4,7 +4,9 @@ class HomeController {
 
     public function indexAction()
     {
-        exit('Ya volvemos!');
+//        return "hola";
+
+        return new View('home', ['titulo' => 'Mini Framework PHP']);
     }
 
 }
