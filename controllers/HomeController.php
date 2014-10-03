@@ -6,7 +6,8 @@ class HomeController {
     {
 //        return "hola";
 
-        return new View('home', ['titulo' => 'Mini Framework PHP']);
+        return new View('home', ['titulo' => 'This is Sparta....!!!!']);
+
     }
 
 }

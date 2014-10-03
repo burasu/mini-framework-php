@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<h1><?= $titulo ?></h1>
+
+<h4><?= $titulo ?></h4>
 
 <p><a href="contactos">Contactanos</a></p>
 
-</body>
-</html>
