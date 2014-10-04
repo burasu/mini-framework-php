@@ -5,7 +5,7 @@
  */
 
 /**
- * Mostramos un error 404 indicando que la página no fue encontrada.
+ * Muestra un error 404 indicando que la página no fue encontrada.
  */
 function error_404()
 {
@@ -13,9 +13,6 @@ function error_404()
     die($view->draw());
 }
 
-/**
- * Encriptamos la contraseña recibida.
- */
 function encrypt($password)
 {
     return sha1($password);

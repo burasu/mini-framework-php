@@ -13,8 +13,7 @@ class Model {
 
     public function __construct($data, $exists = false)
     {
-        if (isset($data['id']))
-        {
+        if (isset($data['id'])) {
             $this->id = $data['id'];
         }
         $this->exists = $exists;
@@ -33,7 +32,7 @@ class Model {
     /**
      * Comprueba si el modelo es válido. Este método se sobreescribe en todos
      * los modelos y se añade la validación manualmente.
-     *
+     * 
      * @return boolean true si la validación es incorrecta. false en caso contrario.
      */
     public function is_valid()
@@ -47,12 +46,9 @@ class Model {
     public function save()
     {
         // Las consultas de guardado se ejecutan en el método heredado.
-        if ($this->exists)
-        {
+        if ($this->exists) {
             //
-        }
-        else
-        {
+        } else {
             // Se recoge el id de la nueva fila insertada.
             $this->id = DB::lastInsertId();
             // Se indica que el objeto existe en la DB.
@@ -65,7 +61,7 @@ class Model {
 
     /**
      * Obtiene modelos según la información enviada.
-     *
+     * 
      * @param array $where Los atributos de la condición where. El array debe ser de clave - valor.
      * @param int $take_from Desde qué fila va a devolver. Si no se da este valor, se devuelven todos.
      * @param int $take Cuántas va a recoger. Si no se da este valor, $take_from se toma como $take.
@@ -82,12 +78,10 @@ class Model {
         $one = false;
 
         // Se construye la sentencia SQL a partir de $where.
-        if (count($where) > 0)
-        {
+        if (count($where) > 0) {
             $sql .= ' WHERE';
 
-            foreach ($where as $key => $value)
-            {
+            foreach ($where as $key => $value) {
                 $sql .= sprintf(' %s = ? AND', $key);
                 $attributes[] = $value;
             }
@@ -96,12 +90,9 @@ class Model {
         }
 
         // Se incluye LIMIT si se han pasado $take_from y $take.
-        if (is_int($take_from))
-        {
-            if (!is_int($take))
-            {
-                if ($take_from == 1)
-                {
+        if (is_int($take_from)) {
+            if (!is_int($take)) {
+                if ($take_from == 1) {
                     $one = true;
                 }
                 $take = $take_from;
@@ -119,23 +110,17 @@ class Model {
         $classname = get_called_class();
 
         // Si no se obtienen resultados, se devuelve false.
-        if (count($result) == 0)
-        {
+        if (count($result) == 0) {
             return false;
 
-        }
         // Si se pide un resultado, se devuelve el objeto.
-        elseif ($one)
-        {
+        } elseif ($one) {
             return new $classname($result[0], true);
 
-        }
         // Si se obtienen varios objetos, se devuelve un array de objetos.
-        else
-        {
+        } else {
             $collection = [];
-            foreach ($result as $val)
-            {
+            foreach ($result as $val) {
                 $collection[] = new $classname($val, true);
             }
             return $collection;
@@ -165,7 +150,7 @@ class Model {
 
     /**
      * Crea un nuevo modelo con los datos pasados y lo almacena en la base de datos.
-     *
+     * 
      * @param array $data Datos a pasar al constructor del modelo.
      * @return mixed El modelo creado, o false si ha ocurrido algún error al validar.
      */
@@ -173,13 +158,10 @@ class Model {
     {
         $classname = get_called_class();
         $model = new $classname($data);
-        if ($model->is_valid())
-        {
+        if ($model->is_valid()) {
             $model->save();
             return $model;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }

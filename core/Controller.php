@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Controlador base de cual extenderá el reto de controladores.
- * Cuando se inicia, se le debe pasar el action, el cual es el nombre
- * del método a ejecutar.
+ * Controlador base del cual extenderán los demás controladores. El controlador,
+ * cuando se inicia, se le debe pasar el action, que es el nombre del método
+ * que va a ejecutar.
  */
 class Controller {
 
@@ -11,35 +11,31 @@ class Controller {
 
     /**
      * El constructor recibe el action, que contiene el nombre del método que va a ejecutar.
-     * Si el método no existe, mostramos un error 404. Si existe, enviamos al usuario
-     * la vista y finaliza la ejecución del programa.
-     *
+     * Si el método no existe, muestra un error 404. Si existe, envía al cliente la vista
+     * y finaliza la ejecución del programa.
+     * 
      * @param String $action Nombre del método a ejecutar.
      */
     public function __construct($action = null)
     {
-
-        // Comprueba si action es distinto de null, y en dicho caso, si equivale
-        // a un método que exista en el controlador.
+        // Comprueba si action es distinto de null, y en dicho caso, si equivale a un método
+        // que exista en el controlador.
         if ($action !== null && method_exists($this, $action))
         {
-            // Comprobamos si el método require estar autenticado,
-            // y lo redirigimos al login si no lo está.
+            // Comprueba si el método requiere estar autenticado, y lo
+            // redirige al login si no lo está.
             if (in_array($action, static::$require_auth))
             {
-
-                // Si no está autenticado lo redirigimos al home.
                 if ( ! Auth::check())
                 {
                     die(header('Location:./'));
                 }
             }
 
-            // Ejecutamos el método guardado en $action.
+            // Ejecuta el método guardado en $action. Ejemplo: Si $action = 'login', hará $this->login()
             $view = $this->$action();
-
             // Si el contenido devuelto por el método es una instancia de la clase View,
-            // ejecutamos el método que imprime la vista.
+            // ejecuta el método que imprime la vista.
             if ($view instanceof View)
             {
                 $view->draw();
@@ -49,9 +45,8 @@ class Controller {
             {
                 echo $view;
             }
-
             die;
         }
     }
 
-} 
+}
